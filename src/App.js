@@ -1,24 +1,27 @@
-import logo from './logo.svg';
 import './App.css';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import SignInSide from './signInPage';
+import { useState } from 'react';
 
 function App() {
+  const lightTheme = createTheme();
+  const darkTheme = createTheme({
+    palette: {
+      mode: 'dark',
+    },
+  });
+
+  const [useDarkTheme, setUseDarkTheme] = useState(false);
+
+  const changeTheme = () => {
+    setUseDarkTheme(!useDarkTheme);
+  }
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <ThemeProvider theme={useDarkTheme ? darkTheme : lightTheme}>
+        <button onClick={changeTheme}>Change Theme</button>
+        <SignInSide />
+      </ThemeProvider>
   );
 }
 
